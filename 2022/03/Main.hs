@@ -9,7 +9,7 @@ main = do
     putStrLn (show solution)
 
 solve :: String -> Int
-solve rs = sum $ map (priority . share . compartments) (lines rs)
+solve = sum . map (priority . share . compartments) . lines
     where
         -- split one rucksack into its compartments
         compartments :: String -> (String, String)
