@@ -16,7 +16,7 @@ langs = [
   'Prolog?',
   'C',
   'Ruby',
-  'Scala',
+  #'Scala',
   'Rust',
   'PHP',
   'Java',
