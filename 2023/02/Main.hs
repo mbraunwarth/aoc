@@ -1,5 +1,7 @@
 module Main where
 
+import Data.List
+
 data Game = Game Int [Set]
 
 data Set = Set
@@ -33,13 +35,12 @@ parseGame line = Game (parseID line) (parseSets line)
   where
     parseID = read . last . words . takeWhile (/= ':')
     parseSets :: String -> [Set]
-    parseSets line = 
-      let line = tail $ dropWhile (/= ':') line
-      in  parseSets' () line
-        where
-          parseSets' acc (num:' ':'r':'e':'d':rest) ->
-            parseSets' ()
-          parseSets' acc (num:' ':'g':'r':'e':'e':'n':rest)
-          parseSets' acc (num:' ':'b':'l':'u':'e':rest)
-          
+    parseSets line = unwords . words . tail . dropWhile (/= ':')
 
+-- foldl :: Foldable t => (b -> a -> b) -> b -> t a -> b
+splitAt :: Eq a => a -> [a] -> [[a]]
+splitAt e xs = splitAt' e xs []
+  where
+    splitAt' _ []   acc = acc
+    splitAt' e x:xs acc | x == e    = acc ++ (splitAt' e xs [])
+                        | otherwise = splitAt' e xs (acc ++ [x])
